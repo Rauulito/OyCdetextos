@@ -1,3 +1,9 @@
+#Carga del archivo
+import pandas as pnd
+mensajesTwitter = pnd.read_csv("datas/calentamientoClimatico.csv", delimiter=";")
+
+
+
 #------ Uso de SVM ---
 
 
