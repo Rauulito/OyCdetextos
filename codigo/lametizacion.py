@@ -2,17 +2,13 @@
 import pandas as pnd
 mensajesTwitter = pnd.read_csv("datas/calentamientoClimatico.csv", delimiter=";")
 
-import nltk
-nltk.download('stopwords')
-nltk.download('wordnet')
-
-#Carga de StopWords
-from nltk.corpus import stopwords
-stopWords = stopwords.words('english')
-
-#Eliminación de las Stops Words en las distintas frases
-mensajesTwitter['TWEET'] = mensajesTwitter['TWEET'].apply(lambda mensaje: ' '.join([palabra for palabra in mensaje.split() if palabra not in (stopWords)]))
+#Lematización
+from nltk.stem import WordNetLemmatizer
+lemmatizer = WordNetLemmatizer()
+mensajesTwitter['TWEET'] = mensajesTwitter['TWEET'].apply(lambda mensaje: ' '.join([lemmatizer.lemmatize(palabra) for palabra in mensaje.split(' ')]))
 print(mensajesTwitter.head(10))
+
+print("¡Fin de la preparación!")
 
 #Conjunto de aprendizaje y de prueba:
 from sklearn.model_selection import train_test_split
@@ -40,5 +36,6 @@ print(classification_report(y_test, modelo.predict(X_test), digits=4))
 frase = "Why should trust scientists with global warming if they didnt know Pluto wasnt a planet"
 print(frase)
 
-#Eliminación de las stops words
-frase = ' '.join([palabra for palabra in frase.split() if palabra not in (stopWords)])
+#Lematización
+frase = ' '.join([lemmatizer.lemmatize(palabra) for palabra in frase.split(' ')])
+print (frase)

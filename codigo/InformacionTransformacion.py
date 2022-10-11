@@ -6,18 +6,20 @@ import nltk
 nltk.download('stopwords')
 nltk.download('wordnet')
 
-#Carga de StopWords
-from nltk.corpus import stopwords
-stopWords = stopwords.words('english')
 
-#Eliminación de las Stops Words en las distintas frases
-mensajesTwitter['TWEET'] = mensajesTwitter['TWEET'].apply(lambda mensaje: ' '.join([palabra for palabra in mensaje.split() if palabra not in (stopWords)]))
-print(mensajesTwitter.head(10))
+
+
+#Información sobre la cantidad de observaciones y su contenido
+print(mensajesTwitter.shape)
+print(mensajesTwitter.head(2))
+
+#Transformación de la característica Creencia
+mensajesTwitter['CREENCIA'] = (mensajesTwitter['CREENCIA']=='Yes').astype(int)
+print(mensajesTwitter.head(100))
 
 #Conjunto de aprendizaje y de prueba:
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(mensajesTwitter['TWEET'].values,  mensajesTwitter['CREENCIA'].values,test_size=0.2)
-
 
 #Creación de la canalización de aprendizaje
 from sklearn.pipeline import Pipeline
@@ -40,5 +42,9 @@ print(classification_report(y_test, modelo.predict(X_test), digits=4))
 frase = "Why should trust scientists with global warming if they didnt know Pluto wasnt a planet"
 print(frase)
 
-#Eliminación de las stops words
-frase = ' '.join([palabra for palabra in frase.split() if palabra not in (stopWords)])
+prediccion = modelo.predict([frase])
+print(prediccion)
+if(prediccion[0]==0):
+    print(">> No cree en el calentamiento climático...")
+else:
+    print(">> Cree en el calentamiento climático...")

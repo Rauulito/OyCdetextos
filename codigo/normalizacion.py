@@ -2,17 +2,21 @@
 import pandas as pnd
 mensajesTwitter = pnd.read_csv("datas/calentamientoClimatico.csv", delimiter=";")
 
-import nltk
-nltk.download('stopwords')
-nltk.download('wordnet')
+#Función de normalización
+import re
+def normalizacion(mensaje):
+    mensaje = re.sub('((www\.[^\s]+)|(https?://[^\s]+))','URL', mensaje)
+    mensaje = re.sub('@[^\s]+','USER', mensaje)
+    mensaje = mensaje.lower().replace("ё", "е")
+    mensaje = re.sub('[^a-zA-Zа-яА-Я1-9]+', ' ', mensaje)
+    mensaje = re.sub(' +',' ', mensaje)
+    return mensaje.strip()
 
-#Carga de StopWords
-from nltk.corpus import stopwords
-stopWords = stopwords.words('english')
 
-#Eliminación de las Stops Words en las distintas frases
-mensajesTwitter['TWEET'] = mensajesTwitter['TWEET'].apply(lambda mensaje: ' '.join([palabra for palabra in mensaje.split() if palabra not in (stopWords)]))
+#Normalización
+mensajesTwitter["TWEET"] = mensajesTwitter["TWEET"].apply(normalizacion)
 print(mensajesTwitter.head(10))
+
 
 #Conjunto de aprendizaje y de prueba:
 from sklearn.model_selection import train_test_split
@@ -40,5 +44,5 @@ print(classification_report(y_test, modelo.predict(X_test), digits=4))
 frase = "Why should trust scientists with global warming if they didnt know Pluto wasnt a planet"
 print(frase)
 
-#Eliminación de las stops words
-frase = ' '.join([palabra for palabra in frase.split() if palabra not in (stopWords)])
+#Normalización
+frase = normalizacion(frase)
