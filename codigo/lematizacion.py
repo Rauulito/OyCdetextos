@@ -1,14 +1,17 @@
 #Carga del archivo
 import pandas as pnd
 mensajesTwitter = pnd.read_csv("datas/calentamientoClimatico.csv", delimiter=";")
-
-def stemming():
-    #Aplicación de stemming
-    from nltk.stem.snowball import SnowballStemmer
-    stemmer = SnowballStemmer('english')
-    mensajesTwitter['TWEET'] = mensajesTwitter['TWEET'].apply(lambda mensaje: ' '.join([stemmer.stem(palabra) for palabra in mensaje.split(' ')]))
+#Añadimos el modulo nltk con la version necesaria
+import nltk
+nltk.download('omw-1.4')
+def lematizacion():
+    #Lematización
+    from nltk.stem import WordNetLemmatizer
+    lemmatizer = WordNetLemmatizer()
+    mensajesTwitter['TWEET'] = mensajesTwitter['TWEET'].apply(lambda mensaje: ' '.join([lemmatizer.lemmatize(palabra) for palabra in mensaje.split(' ')]))
     print(mensajesTwitter.head(10))
 
+    print("¡Fin de la preparación!")
 
     #Conjunto de aprendizaje y de prueba:
     from sklearn.model_selection import train_test_split
@@ -36,5 +39,7 @@ def stemming():
     frase = "Why should trust scientists with global warming if they didnt know Pluto wasnt a planet"
     print(frase)
 
-    #Aplicación de stemming
-    frase =  ' '.join([stemmer.stem(palabra) for palabra in frase.split(' ')])
+    #Lematización
+    frase = ' '.join([lemmatizer.lemmatize(palabra) for palabra in frase.split(' ')])
+    print (frase)
+lematizacion()
