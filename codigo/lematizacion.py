@@ -42,4 +42,3 @@ def lematizacion():
     #Lematización
     frase = ' '.join([lemmatizer.lemmatize(palabra) for palabra in frase.split(' ')])
     print (frase)
-lematizacion()

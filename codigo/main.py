@@ -7,6 +7,7 @@ from normalizacion import normalizacion2
 from Stopwords import Stop_words
 from stemming import stemming
 from lematizacion import lematizacion
+from canalizacion import canalizacion
 
 
 
@@ -21,6 +22,7 @@ def pruebas():
     print("FASE 4: Lematización")
     lematizacion()
     print("FASE 5: Canalización")
+    canalizacion()
 
 
 if __name__ == "__main__":
