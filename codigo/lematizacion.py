@@ -1,6 +1,7 @@
 #Carga del archivo
 import pandas as pnd
-mensajesTwitter = pnd.read_csv("datas/calentamientoClimatico.csv", delimiter=";")
+mensajesTwitter = pnd.read_csv("/Users/Lorenzo/Documents/programacion/2.Desarrollo_OO/OyC-de-textos/codigo/datas/calentamientoClimatico.csv", delimiter=";")
+
 #Añadimos el modulo nltk con la version necesaria
 import nltk
 nltk.download('omw-1.4')

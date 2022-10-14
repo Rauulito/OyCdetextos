@@ -1,12 +1,12 @@
 #Carga del archivo
 import pandas as pnd
-mensajesTwitter = pnd.read_csv("datas/calentamientoClimatico.csv", delimiter=";")
+mensajesTwitter = pnd.read_csv("/Users/Lorenzo/Documents/programacion/2.Desarrollo_OO/OyC-de-textos/codigo/datas/calentamientoClimatico.csv", delimiter=";")
 
 #Función de normalización
 import re
 def normalizacion(mensaje):
-    mensaje = re.sub('((www\.[^\s]+)|(https?://[^\s]+))','URL', mensaje)
-    mensaje = re.sub('@[^\s]+','USER', mensaje)
+    mensaje = re.sub('((www/.[^/s]+)|(https?://[^/s]+))','URL', mensaje)
+    mensaje = re.sub('@[^/s]+','USER', mensaje)
     mensaje = mensaje.lower().replace("ё", "е")
     mensaje = re.sub('[^a-zA-Zа-яА-Я1-9]+', ' ', mensaje)
     mensaje = re.sub(' +',' ', mensaje)

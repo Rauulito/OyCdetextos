@@ -1,7 +1,6 @@
 #lanzador
-# import normalizacion, InformacionTransformacion, lematizacion , canalizacion ,Stopwords, stemming
 import sys
-sys.path.insert(0, "/Users/Lorenzo/Documents/programacion/2.Desarrollo_OO/OyC-de-textos/codigo")
+sys.path.insert(0, "/Users/Lorenzo/Documents/programacion/5.archivos_utiles/OyCdetextos/codigo")
 from InformacionTransformacion import Info_original
 from normalizacion import normalizacion2
 from Stopwords import Stop_words
@@ -27,4 +26,3 @@ def pruebas():
 
 if __name__ == "__main__":
     pruebas()
-    # print(normalizacion.normalizacion2())
